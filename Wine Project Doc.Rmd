@@ -11,16 +11,19 @@ knitr::opts_chunk$set(echo = TRUE)
 ----
 
 ## Executive Summary
-For my capstone choose your own project, I wanted to find something of personal interest and I stumbled across a wine data on UCI Marchine Learning Archive. I’ve always been under the impression that there’s some je ne sais quoi about wine quality and I think it will be fascinating to some analysis on. We will see if we can predict the assigned quality rating on our validation set based on inputs from from our training set.
+For my capstone choose your own project, I wanted to find something of personal interest and I stumbled across a wine data on UCI Marchine Learning Archive. I’ve always been under the impression that there’s some je ne sais quoi about wine quality and I think it will be fascinating to some analysis on ths dataset. We will see if we can predict the assigned quality rating on our validation set based on inputs from from our training set.
+
 ## Analysis and Methods
-(explains the process and techniques used, such as data cleaning, data exploration and visualization, any insights gained, and your modeling approach)
 
 ### Data Exploration
 We have a dataframe of 4898 observations over 13 variables (I’ve combined the white and red datasets and added the color as an additional variable). These variables are all continuous, objective observations of various components of the wine, including density, acidity, sulfites, etc., except for the final observation, which is the subjective assignment of a quality ranking.
 
 When we initially plot our quality rankings we identify our first problem. Over 93% of wines are assigned a ranking of a 5, 6, or 7. While this will make predicting a score close to the actual score relatively easy, thinking as a sommelier, we don’t want to miss those wonderful 8’s and 9’s or risk giving someone a 3 or a 4.
+
 ![figure 1](figure01.png)
+
 Next we’ll visualize all of the different variables to see if we can identify any outliers that might lead us to what makes a top wine. As we can see, there isn't a ton to separate the top wines from the rest. The spread of each variable does get narrower but that could be explained by the smaller sample size. It also appears that each interquartile box overlaps with each other. 
+
 ![figure 2](figure02.png)
 ![figure 3](figure03.png)
 ![figure 4](figure04.png)
@@ -32,6 +35,7 @@ Next we’ll visualize all of the different variables to see if we can identify 
 ![figure 10](figure10.png)
 ![figure 11](figure11.png)
 ![figure 12](figure12.png)
+
 A few variables do look promising: alcohol (higher values seem to lead to an improved quality), density (lower points to a higer quality. My experience as a homebrewer tells me that alcohol levels have an effect on density), chloride, and volatile acids as well. 
 
 ### Analysis
@@ -61,6 +65,9 @@ At this point we're ready to build our final ensemble of the three top performin
 Using an ensemble of 5 different models, two of which we manually tuned, we ended up with a final accuracy of 70.9%. After I ran the final model, I went back and ran the intermediate steps against the test set to see how much we improved with each step. The first ensemble model with only 5 factors and no tuning is really where we peaked. The additional tuning and factors didn't actually improve the overall model, even if they improved their individual performance by significant amount. 
 
 ![figure 16](figure16.png)
+
+## Conclusion
+We were able to do some significant work on this dataset but ran into a wall relatively quickly. We were able to identify the top five drivers of quality: alcohol, volatile acidity, free sulfur dioxide, sulphates, and chlorides, and use them to make reasonable good predictions on quality. I did a quick google search on other data analyses doing similar classification of wines research but different datasets and found that they also identified similar driving factors and also topped out at around 70%.
 
 ### Suggested Improvements
 I think I made a bit of a mistake at the very beginning of this process when I treated quality as a categorical factor as opposed to a continuous one. While this was accurate, in this prediction algorithm it might have provided more value to the metaphorical wine grader to receive a suggestion that was not an exact quality assignment but a continuous output that would help validate their judgement. We may have ended up with the algorithm having significantly less misses by multiple factors. I also wish I had an academic license to compare my results to the initial research team and see how I could have improved.
