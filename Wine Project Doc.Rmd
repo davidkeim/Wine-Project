@@ -36,21 +36,21 @@ We have a dataframe of 4898 observations over 13 variables (I’ve combined the 
 
 When we initially plot our quality rankings we identify our first problem. Over 93% of wines are assigned a ranking of a 5, 6, or 7. In fact on the ten point scale, there are no 1s, 2s, or perfect 10s. While this will make predicting a score close to the actual score relatively easy, thinking as a sommelier, we don’t want to miss those wonderful 8’s and 9’s or risk giving someone a 3 or a 4.
 
-![figure 1](figure01.png)
+![figure 1](./figure01.png)
 
 Next we’ll visualize all of the different variables to see if we can identify any outliers that might lead us to what makes a top wine. As we can see, there isn't a ton to separate the top wines from the rest. The spread of each variable does get narrower but that could be explained by the smaller sample size. It also appears that each interquartile box overlaps with each other. 
 
-![figure 2](figure02.png)
-![figure 3](figure03.png)
-![figure 4](figure04.png)
-![figure 5](figure05.png)
-![figure 6](figure06.png)
-![figure 7](figure07.png)
-![figure 8](figure08.png)
-![figure 9](figure09.png)
-![figure 10](figure10.png)
-![figure 11](figure11.png)
-![figure 12](figure12.png)
+![figure 2](./figure02.png)
+![figure 3](./figure03.png)
+![figure 4](./figure04.png)
+![figure 5](./figure05.png)
+![figure 6](./figure06.png)
+![figure 7](./figure07.png)
+![figure 8](./figure08.png)
+![figure 9](./figure09.png)
+![figure 10](./figure10.png)
+![figure 11](./figure11.png)
+![figure 12](./figure12.png)
 
 A few variables do look promising: alcohol (higher values seem to lead to an improved quality), density (lower points to a higher quality. My experience as a home brewer tells me that alcohol levels have an effect on density), chloride, and volatile acids as well. 
 
@@ -59,17 +59,17 @@ We could start off just by predicting the most common quality assignment, a 6, f
 
 We want to throw a bunch of different models at this challenge to see which ones are effective but before we do, we need to trim down to the most useful factors. A smaller set of factors will allow us to try more models without taking hours. We run a Recursive Feature Elimination assessment to identify the top 5 factors by importance and get the result of alcohol, volatile.acidity, free.sulfur.dioxide, sulphates, chlorides. We already identified a couple of these in through our initial over-correlated.
 
-![figure 13](figure13.png)
+![figure 13](./figure13.png)
 
 For the record, I looked up volatile acids and they're what leads to the development of vinegar, definitely not a great thing for your wine to include at high levels.
 
 Now that we have a smaller set of factors let's use some models on them to see how they perform. This does take some time to run. We see a couple models over 60% accuracy, a second group around 50%, and gamLoess just lost out in space. The top was Random Forest with an accuracy of 67.7%.
 
-![figure 14](figure14.png)
+![figure 14](./figure14.png)
 
 Our coursework has taught that combining multiple models should lead to an improvement in the accuracy. We'll combine our five models and see if we can improve on their individual performance. For this to be effective we want to compare correlation between models. If they're over-correlated (>.75), then we won't see improvement. We can see that we don't have any worries for this set.
 
-![figure 15](figure15.png)
+![figure 15](./figure15.png)
 
 I tried to use the caretEnsemble package to accomplish this but it threw me an error with multi-class problems. We'll have to build our ensemble in a similar manner to how we built the first one determining 2s against 7s with the MNIST dataset in the course. We will add back the additional factors that we trimmed earlier to bump up the accuracy if we can. We get an accuracy of 70.2% which is a rather small improvement. Because this improvement is so small, I'm going to go back and see if we can't adjust any of the tuning parameters on the individual models to get an improvement. The challenge is that the tree based models already take a bit of time to run.
 
@@ -80,7 +80,7 @@ At this point we're ready to build our final ensemble of the three top performin
 ## Results
 Using an ensemble of 5 different models, two of which we manually tuned, we ended up with a final accuracy of 70.9%. After I ran the final model, I went back and ran the intermediate steps against the test set to see how much we improved with each step. The first ensemble model with only 5 factors and no tuning is really where we peaked. The additional tuning and factors didn't actually improve the overall model, even if they improved their individual performance by a significant amount. 
 
-![figure 16](figure16.png)
+![figure 16](./figure16.png)
 
 ## Conclusion
 We were able to do some significant work on this dataset but ran into a wall relatively quickly. We were able to identify the top five drivers of quality: alcohol, volatile acidity, free sulfur dioxide, sulphates, and chlorides, and use them to make reasonable good predictions on quality. I did a quick google search on other data analyses doing similar classification of wines research but different datasets and found that they also identified similar driving factors and also topped out at around 70%. I wouldn't be shocked if certain factors that were purposefully omitted from this dataset, grape types, wine brand, wine selling price, region, vintage, etc., would have a greater impact on our ability to determine quality.
