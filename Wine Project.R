@@ -40,42 +40,42 @@ avg_rating <- mean(wine$quality)
 train_set %>% ggplot(aes(quality)) + geom_bar() +
   ggtitle("Quality Ratings") +
   theme_economist() +
-  ggsave(filename = "figure01.png")
+  ggsave(filename = "./figure01.png")
 
 #Visualization of Variables to spot if any are impactful
 train_set %>% ggplot(aes(quality, fixed.acidity)) + geom_boxplot(aes(group=quality)) +
   ggtitle("Fixed Acid Levels by Quality") + theme_economist() +
-  ggsave(filename = "figure02.png")
+  ggsave(filename = "./figure02.png")
 train_set %>% ggplot(aes(quality, volatile.acidity)) + geom_boxplot(aes(group=quality)) +
   ggtitle("Volatile Acids Levels by Quality") + theme_economist()+
-  ggsave(filename = "figure03.png")
+  ggsave(filename = "./figure03.png")
 train_set %>% ggplot(aes(quality, citric.acid)) + geom_boxplot(aes(group=quality))+
   ggtitle("Citric Acid Levels by Quality") + theme_economist()+
-  ggsave(filename = "figure04.png")
+  ggsave(filename = "./figure04.png")
 train_set %>% ggplot(aes(quality, residual.sugar)) + geom_boxplot(aes(group=quality))+
   ggtitle("Sugar Levels by Quality") + theme_economist()+
-  ggsave(filename = "figure05.png")
+  ggsave(filename = "./figure05.png")
 train_set %>% ggplot(aes(quality, chlorides)) + geom_boxplot(aes(group=quality))+
   ggtitle("Chloride Levels by Quality") + theme_economist()+
-  ggsave(filename = "figure06.png")
+  ggsave(filename = "./figure06.png")
 train_set %>% ggplot(aes(quality, free.sulfur.dioxide)) + geom_boxplot(aes(group=quality))+
   ggtitle("Free SO2 Levels by Quality") + theme_economist()+
-  ggsave(filename = "figure07.png")
+  ggsave(filename = "./figure07.png")
 train_set %>% ggplot(aes(quality, total.sulfur.dioxide)) + geom_boxplot(aes(group=quality))+
   ggtitle("Total SO2 Levels by Quality") + theme_economist()+
-  ggsave(filename = "figure08.png")
+  ggsave(filename = "./figure08.png")
 train_set %>% ggplot(aes(quality, density)) + geom_boxplot(aes(group=quality))+
   ggtitle("Density Levels by Quality") + theme_economist()+
-  ggsave(filename = "figure09.png")
+  ggsave(filename = "./figure09.png")
 train_set %>% ggplot(aes(quality, pH)) + geom_boxplot(aes(group=quality))+
   ggtitle("pH Levels by Quality") + theme_economist()+
-  ggsave(filename = "figure10.png")
+  ggsave(filename = "./figure10.png")
 train_set %>% ggplot(aes(quality, sulphates)) + geom_boxplot(aes(group=quality))+
   ggtitle("Sulphate Levels by Quality") + theme_economist()+
-  ggsave(filename = "figure11.png")
+  ggsave(filename = "./figure11.png")
 train_set %>% ggplot(aes(quality, alcohol)) + geom_boxplot(aes(group=quality))+
   ggtitle("Alcohol Levels by Quality") + theme_economist()+
-  ggsave(filename = "figure12.png")
+  ggsave(filename = "./figure12.png")
 
 #Simply Guess 6 for everything
 mean(train_set$quality == "6")
@@ -203,4 +203,4 @@ mean(preds_vote_1 == test_set$quality)
 accuracies <- data.frame(method = c("Mean", "KNN", "RF", "Ens_1","Ens_2", "Ens_3", "Ens_F"), rates = c( 43.7, 47.5, 67.7, 70.6, 70.6, 70.9, 70.9))
 accuracies$method <- factor(accuracies$method, levels = accuracies$method)
 accuracies %>% ggplot(aes(method, rates, label = rates)) + geom_point() + 
-  ggtitle("Accuracy by Method") + theme_economist() + geom_text(nudge_y = 1) + ggsave(filename = "figure16.png")
+  ggtitle("Accuracy by Method") + theme_economist() + geom_text(nudge_y = 1) + ggsave(filename = "./figure16.png")
